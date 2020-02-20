@@ -152,12 +152,14 @@ module.exports = class Receive {
     console.log(postback);
     // Check for the special Get Starded with referral
     let payload;
-    if (postback.referral && postback.referral.type == "OPEN_THREAD") {
-      payload = postback.referral.ref;
-    } else {
+    if (postback.payload) {
       // Get the payload of the postback
       payload = postback.payload;
     }
+    else if (postback.referral && postback.referral.type == "OPEN_THREAD") {
+      payload = postback.referral.ref;
+    }
+     
     return this.handlePayload(payload.toUpperCase());
   }
 

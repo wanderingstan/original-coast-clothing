@@ -149,6 +149,7 @@ module.exports = class Receive {
   // Handles postbacks events
   handlePostback() {
     let postback = this.webhookEvent.postback;
+    console.log(postback);
     // Check for the special Get Starded with referral
     let payload;
     if (postback.referral && postback.referral.type == "OPEN_THREAD") {

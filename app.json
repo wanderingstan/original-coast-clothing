@@ -3,7 +3,7 @@
   "description": "An example Messenger Bot.",
   "repository": "https://github.com/fbsamples/original-coast-clothing",
   "logo": "https://raw.githubusercontent.com/fbsamples/original-coast-clothing/master/public/logo.svg",
-  "keywords": ["node", "express", "facebook"],
+  "keywords": ["node", "express", "messenger", "facebook"],
   "env": {
     "APP_ID": {
       "description": "ID of your Facebook App. See: https://developers.facebook.com/docs/development/create-an-app/app-dashboard#app-id",
@@ -22,7 +22,7 @@
       "value": ""
     },
     "VERIFY_TOKEN": {
-        "description": "An arbitrary string that is used for the webhook verification request. See: https://developers.facebook.com/docs/messenger-platform/getting-started/webhook-setup/",
+        "description": "An arbitrary string of your choice used for the webhook verification request. See: https://developers.facebook.com/docs/messenger-platform/getting-started/webhook-setup/",
         "value": ""
       },
       "PORT": {

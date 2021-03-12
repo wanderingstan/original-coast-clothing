@@ -45,6 +45,13 @@ app.get("/", function(_req, res) {
   res.render("index");
 });
 
+// Find the url we're serving from
+app.all("*", function (req, res, next) {
+  config.appUrl = req.protocol + '://' + req.get('host');
+  console.log(`Set appUrl to ${config.appUrl}`);
+  next();
+})
+
 // Adds support for GET requests to our webhook
 app.get("/webhook", (req, res) => {
   // Parse the query params

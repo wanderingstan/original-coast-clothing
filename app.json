@@ -23,7 +23,7 @@
     },
     "VERIFY_TOKEN": {
         "description": "An arbitrary string that is used for the webhook verification request. See: https://developers.facebook.com/docs/messenger-platform/getting-started/webhook-setup/",
-        "generator": "secret"
+        "value": ""
       },
       "PORT": {
         "description": "Preferred TCP Port for this server.",

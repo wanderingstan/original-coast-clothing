@@ -45,10 +45,9 @@ app.get("/", function(_req, res) {
   res.render("index");
 });
 
-// Find the url we're serving from
+// Remember the base URL that we're serving from
 app.all("*", function (req, res, next) {
   config.appUrl = req.protocol + '://' + req.get('host');
-  console.log(`Set appUrl to ${config.appUrl}`);
   next();
 })
 
@@ -232,7 +231,7 @@ function verifyRequestSignature(req, res, buf) {
   var signature = req.headers["x-hub-signature"];
 
   if (!signature) {
-    console.log("Couldn't validate the signature.");
+    console.log("Couldn't find \"x-hub-signature\" in headers.");
   } else {
     var elements = signature.split("=");
     var signatureHash = elements[1];
@@ -249,7 +248,7 @@ function verifyRequestSignature(req, res, buf) {
 // Check if all environment variables are set
 config.checkEnvVariables();
 
-// listen for requests :)
+// Listen for requests :)
 var listener = app.listen(config.port, function() {
   console.log("Your app is listening on port " + listener.address().port);
 

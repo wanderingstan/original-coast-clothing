@@ -2,7 +2,7 @@
   "name": "Messenger Example Bot",
   "description": "An example Messenger Bot.",
   "repository": "https://github.com/fbsamples/original-coast-clothing",
-  "logo": "https://github.com/fbsamples/original-coast-clothing/blob/master/public/logo.png",
+  "logo": "https://raw.githubusercontent.com/fbsamples/original-coast-clothing/master/public/logo.svg",
   "keywords": ["node", "express", "facebook"],
   "env": {
     "APP_ID": {

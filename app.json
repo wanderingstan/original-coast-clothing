@@ -1,0 +1,33 @@
+{
+  "name": "Messenger Example Bot",
+  "description": "An example Messenger Bot.",
+  "repository": "https://github.com/fbsamples/original-coast-clothing",
+  "logo": "https://github.com/fbsamples/original-coast-clothing/blob/master/public/logo.png",
+  "keywords": ["node", "express", "facebook"],
+  "env": {
+    "APP_ID": {
+      "description": "ID of your Facebook App. See: https://developers.facebook.com/docs/development/create-an-app/app-dashboard#app-id",
+      "value": ""
+    },
+    "APP_SECRET": {
+        "description": "The Secret of your Facebook App. Your App secret can be found in App Dashboard -> Seetings -> Basic",
+        "value": ""
+      },
+    "PAGE_ID": {
+        "description": "ID of your Facebook Page which is connected to Instagram",
+        "value": ""
+      },
+      "PAGE_ACCESS_TOKEN": {
+      "description": "Page Access Token. See: https://developers.facebook.com/docs/pages/access-tokens/#get-a-page-access-token",
+      "value": ""
+    },
+    "VERIFY_TOKEN": {
+        "description": "An arbitrary string that is used for the webhook verification request. See: https://developers.facebook.com/docs/messenger-platform/getting-started/webhook-setup/",
+        "value": ""
+      },
+      "PORT": {
+        "description": "Preferred TCP Port for this server.",
+        "value": "5000"
+      }
+    }
+}

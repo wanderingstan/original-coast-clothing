@@ -16,6 +16,12 @@ See the [Developer Documentations on this experience](https://developers.faceboo
 - **Facebook Developer Account:** Required to create new apps, which are the core of any Facebook integration. You can create a new developer account by going to the [Facebook Developers website](https://developers.facebook.com/) and clicking the "Get Started" button.
 - **Facebook App:** Contains the settings for your Messenger automation, including access tokens. To create a new app, visit your [app dashboard](https://developers.facebook.com/apps).
 
+
+## One Click Deploy
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+
 ## Setup Steps
 
 Before you begin, make sure you have completed all of the requirements listed above. At this point you should have a Page and a registered Facebook App.

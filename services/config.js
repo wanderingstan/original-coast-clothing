@@ -20,7 +20,6 @@ const ENV_VARS = [
   "PAGE_ACCESS_TOKEN",
   "APP_SECRET",
   "VERIFY_TOKEN",
-  "APP_URL",
   "SHOP_URL"
 ];
 

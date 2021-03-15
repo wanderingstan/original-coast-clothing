@@ -19,7 +19,7 @@ See the [Developer Documentations on this experience](https://developers.faceboo
 
 ## One Click Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](http://bit.ly/3cw6rX2)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](http://bit.ly/3cyd0Z9)
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](http://bit.ly/3lk7Un7)
 

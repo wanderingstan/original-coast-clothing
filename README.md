@@ -19,9 +19,9 @@ See the [Developer Documentations on this experience](https://developers.faceboo
 
 ## One Click Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](http://bit.ly/3cw6rX2)
 
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/wanderingstan/original-coast-clothing?APP_ID=&APP_SECRET=&PAGE_ID=&PAGE_ACCESS_TOKEN=&VERIFY_TOKEN=&PORT=)
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](http://bit.ly/3lk7Un7)
 
 
 ## Setup Steps

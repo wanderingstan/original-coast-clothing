@@ -154,8 +154,7 @@ module.exports = class Receive {
     if (postback.payload) {
       // Get the payload of the postback
       payload = postback.payload;
-    }
-    else if (postback.referral && postback.referral.type == "OPEN_THREAD") {
+    } else if (postback.referral && postback.referral.type == "OPEN_THREAD") {
       payload = postback.referral.ref;
     }
 
@@ -172,9 +171,6 @@ module.exports = class Receive {
 
   handlePayload(payload) {
     console.log("Received Payload:", `${payload} for ${this.user.psid}`);
-
-    // Log CTA event in FBA
-    GraphAPi.callFBAEventsAPI(this.user.psid, payload);
 
     let response;
 
@@ -249,7 +245,7 @@ module.exports = class Receive {
       message: response
     };
 
-    GraphAPi.callSendAPI(requestBody);
+    GraphAPi.callSendApi(requestBody);
   }
 
   sendMessage(response, delay = 0) {
@@ -281,7 +277,7 @@ module.exports = class Receive {
       };
     }
 
-    setTimeout(() => GraphAPi.callSendAPI(requestBody), delay);
+    setTimeout(() => GraphAPi.callSendApi(requestBody), delay);
   }
 
   firstEntity(nlp, name) {

@@ -37,42 +37,32 @@ module.exports = class Profile {
     GraphAPi.callMessengerProfileAPI(profilePayload);
   }
 
-  setPersonas() {
+  async setPersonas() {
     let newPersonas = config.newPersonas;
 
-    GraphAPi.getPersonaAPI()
-      .then(personas => {
-        for (let persona of personas) {
-          config.pushPersona({
-            name: persona.name,
-            id: persona.id
-          });
-        }
-        console.log(config.personas);
-        return config.personas;
-      })
-      .then(existingPersonas => {
-        for (let persona of newPersonas) {
-          if (!(persona.name in existingPersonas)) {
-            GraphAPi.postPersonaAPI(persona.name, persona.picture)
-              .then(personaId => {
-                config.pushPersona({
-                  name: persona.name,
-                  id: personaId
-                });
-                console.log(config.personas);
-              })
-              .catch(error => {
-                console.log("Creation failed:", error);
-              });
-          } else {
-            console.log("Persona already exists for name:", persona.name);
-          }
-        }
-      })
-      .catch(error => {
-        console.log("Creation failed:", error);
+    let personas = await GraphAPi.getPersonaAPI();
+    for (let persona of personas) {
+      config.pushPersona({
+        name: persona.name,
+        id: persona.id
       });
+    }
+    let existingPersonas = config.personas;
+    console.log({existingPersonas});
+
+    for (let persona of newPersonas) {
+      if (!(persona.name in existingPersonas)) {
+        let personaId = await GraphAPi.postPersonaAPI(
+          persona.name,
+          persona.picture
+        );
+        config.pushPersona({
+          name: persona.name,
+          id: personaId
+        });
+        console.log(config.personas);
+      }
+    }
   }
 
   setGetStarted() {
@@ -139,7 +129,7 @@ module.exports = class Profile {
       })
     };
 
-    console.log(localizedGreeting);
+    console.log({localizedGreeting});
     return localizedGreeting;
   }
 
@@ -153,20 +143,14 @@ module.exports = class Profile {
       composer_input_disabled: false,
       call_to_actions: [
         {
-          title: i18n.__("menu.support"),
-          type: "nested",
-          call_to_actions: [
-            {
-              title: i18n.__("menu.order"),
-              type: "postback",
-              payload: "TRACK_ORDER"
-            },
-            {
-              title: i18n.__("menu.help"),
-              type: "postback",
-              payload: "CARE_HELP"
-            }
-          ]
+          title: i18n.__("menu.order"),
+          type: "postback",
+          payload: "TRACK_ORDER"
+        },
+        {
+          title: i18n.__("menu.help"),
+          type: "postback",
+          payload: "CARE_HELP"
         },
         {
           title: i18n.__("menu.suggestion"),
@@ -182,7 +166,7 @@ module.exports = class Profile {
       ]
     };
 
-    console.log(localizedMenu);
+    console.log({localizedMenu});
     return localizedMenu;
   }
 
@@ -191,7 +175,7 @@ module.exports = class Profile {
       whitelisted_domains: config.whitelistedDomains
     };
 
-    console.log(whitelistedDomains);
+    console.log({whitelistedDomains});
     return whitelistedDomains;
   }
 };

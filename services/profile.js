@@ -11,20 +11,20 @@
 "use strict";
 
 // Imports dependencies
-const GraphAPi = require("./graph-api"),
+const GraphApi = require("./graph-api"),
   i18n = require("../i18n.config"),
   config = require("./config"),
   locales = i18n.getLocales();
 
 module.exports = class Profile {
   setWebhook() {
-    GraphAPi.callSubscriptionsAPI();
-    GraphAPi.callSubscribedApps();
+    GraphApi.callSubscriptionsAPI();
+    GraphApi.callSubscribedApps();
   }
 
   setPageFeedWebhook() {
-    GraphAPi.callSubscriptionsAPI("feed");
-    GraphAPi.callSubscribedApps("feed");
+    GraphApi.callSubscriptionsAPI("feed");
+    GraphApi.callSubscribedApps("feed");
   }
 
   setThread() {
@@ -34,13 +34,13 @@ module.exports = class Profile {
       ...this.getPersistentMenu()
     };
 
-    GraphAPi.callMessengerProfileAPI(profilePayload);
+    GraphApi.callMessengerProfileAPI(profilePayload);
   }
 
   async setPersonas() {
     let newPersonas = config.newPersonas;
 
-    let personas = await GraphAPi.getPersonaAPI();
+    let personas = await GraphApi.getPersonaAPI();
     for (let persona of personas) {
       config.pushPersona({
         name: persona.name,
@@ -52,7 +52,7 @@ module.exports = class Profile {
 
     for (let persona of newPersonas) {
       if (!(persona.name in existingPersonas)) {
-        let personaId = await GraphAPi.postPersonaAPI(
+        let personaId = await GraphApi.postPersonaAPI(
           persona.name,
           persona.picture
         );
@@ -67,22 +67,22 @@ module.exports = class Profile {
 
   setGetStarted() {
     let getStartedPayload = this.getGetStarted();
-    GraphAPi.callMessengerProfileAPI(getStartedPayload);
+    GraphApi.callMessengerProfileAPI(getStartedPayload);
   }
 
   setGreeting() {
     let greetingPayload = this.getGreeting();
-    GraphAPi.callMessengerProfileAPI(greetingPayload);
+    GraphApi.callMessengerProfileAPI(greetingPayload);
   }
 
   setPersistentMenu() {
     let menuPayload = this.getPersistentMenu();
-    GraphAPi.callMessengerProfileAPI(menuPayload);
+    GraphApi.callMessengerProfileAPI(menuPayload);
   }
 
   setWhitelistedDomains() {
     let domainPayload = this.getWhitelistedDomains();
-    GraphAPi.callMessengerProfileAPI(domainPayload);
+    GraphApi.callMessengerProfileAPI(domainPayload);
   }
 
   getGetStarted() {

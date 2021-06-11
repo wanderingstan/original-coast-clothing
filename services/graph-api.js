@@ -15,7 +15,7 @@ const config = require("./config"),
   fetch = require("node-fetch"),
   { URL, URLSearchParams } = require("url");
 
-module.exports = class GraphAPi {
+module.exports = class GraphApi {
   static async callSendApi(requestBody) {
     let url = new URL(config.mPlatfom);
     url.pathname += "/me/messages";

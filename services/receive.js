@@ -15,7 +15,7 @@ const Curation = require("./curation"),
   Response = require("./response"),
   Care = require("./care"),
   Survey = require("./survey"),
-  GraphAPi = require("./graph-api"),
+  GraphApi = require("./graph-api"),
   i18n = require("../i18n.config");
 
 module.exports = class Receive {
@@ -245,7 +245,7 @@ module.exports = class Receive {
       message: response
     };
 
-    GraphAPi.callSendApi(requestBody);
+    GraphApi.callSendApi(requestBody);
   }
 
   sendMessage(response, delay = 0) {
@@ -277,7 +277,7 @@ module.exports = class Receive {
       };
     }
 
-    setTimeout(() => GraphAPi.callSendApi(requestBody), delay);
+    setTimeout(() => GraphApi.callSendApi(requestBody), delay);
   }
 
   firstEntity(nlp, name) {

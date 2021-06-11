@@ -16,7 +16,7 @@ const express = require("express"),
   crypto = require("crypto"),
   path = require("path"),
   Receive = require("./services/receive"),
-  GraphAPi = require("./services/graph-api"),
+  GraphApi = require("./services/graph-api"),
   User = require("./services/user"),
   config = require("./services/config"),
   i18n = require("./i18n.config"),
@@ -121,7 +121,7 @@ app.post("/webhook", (req, res) => {
       if (!(senderPsid in users)) {
         let user = new User(senderPsid);
 
-        GraphAPi.getUserProfile(senderPsid)
+        GraphApi.getUserProfile(senderPsid)
           .then(userProfile => {
             user.setProfile(userProfile);
           })
@@ -178,18 +178,18 @@ app.get("/profile", (req, res) => {
       if (mode == "webhook" || mode == "all") {
         Profile.setWebhook();
         res.write(
-          `<p>Set app ${config.appId} call to ${config.webhookUrl}</p>`
+          `<p>&#10003; Set app ${config.appId} call to ${config.webhookUrl}</p>`
         );
       }
       if (mode == "profile" || mode == "all") {
         Profile.setThread();
-        res.write(`<p>Set Messenger Profile of Page ${config.pageId}</p>`);
+        res.write(`<p>&#10003; Set Messenger Profile of Page ${config.pageId}</p>`);
       }
       if (mode == "personas" || mode == "all") {
         Profile.setPersonas();
-        res.write(`<p>Set Personas for ${config.appId}</p>`);
+        res.write(`<p>&#10003; Set Personas for ${config.appId}</p>`);
         res.write(
-          "<p>To persist the personas, add the following variables \
+          "<p>Note: To persist the personas, add the following variables \
           to your environment variables:</p>"
         );
         res.write("<ul>");
@@ -200,16 +200,16 @@ app.get("/profile", (req, res) => {
         res.write("</ul>");
       }
       if (mode == "nlp" || mode == "all") {
-        GraphAPi.callNLPConfigsAPI();
-        res.write(`<p>Enable Built-in NLP for Page ${config.pageId}</p>`);
+        GraphApi.callNLPConfigsAPI();
+        res.write(`<p>&#10003; Enabled Built-in NLP for Page ${config.pageId}</p>`);
       }
       if (mode == "domains" || mode == "all") {
         Profile.setWhitelistedDomains();
-        res.write(`<p>Whitelisting domains: ${config.whitelistedDomains}</p>`);
+        res.write(`<p>&#10003; Whitelisted domains: ${config.whitelistedDomains}</p>`);
       }
       if (mode == "private-reply") {
         Profile.setPageFeedWebhook();
-        res.write(`<p>Set Page Feed Webhook for Private Replies.</p>`);
+        res.write(`<p>&#10003; Set Page Feed Webhook for Private Replies.</p>`);
       }
       res.status(200).end();
     } else {

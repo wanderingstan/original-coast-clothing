@@ -70,13 +70,16 @@ app.get("/webhook", (req, res) => {
 app.post("/webhook", (req, res) => {
   let body = req.body;
 
+  console.log(`\u{1F7EA} Received webhook:`);
+  console.dir(body, { depth: null });
+
   // Checks if this is an event from a page subscription
   if (body.object === "page") {
     // Returns a '200 OK' response to all requests
     res.status(200).send("EVENT_RECEIVED");
 
     // Iterates over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
+    body.entry.forEach(async function(entry) {
       if ("changes" in entry) {
         // Handle Page Changes event
         let receiveMessage = new Receive();
@@ -100,60 +103,77 @@ app.post("/webhook", (req, res) => {
         }
       }
 
-      // Gets the body of the webhook event
-      let webhookEvent = entry.messaging[0];
-      // console.log(webhookEvent);
+      // Iterate over webhook events - there may be multiple
+      entry.messaging.forEach(async function(webhookEvent) {
+        // Discard uninteresting events
+        if ("read" in webhookEvent) {
+          console.log("Got a read event");
+          return;
+        } else if ("delivery" in webhookEvent) {
+          console.log("Got a delivery event");
+          return;
+        }
 
-      // Discard uninteresting events
-      if ("read" in webhookEvent) {
-        // console.log("Got a read event");
-        return;
-      }
+        // Get the sender PSID
+        let senderPsid = webhookEvent.sender.id;
 
-      if ("delivery" in webhookEvent) {
-        // console.log("Got a delivery event");
-        return;
-      }
-
-      // Get the sender PSID
-      let senderPsid = webhookEvent.sender.id;
-
-      if (!(senderPsid in users)) {
-        let user = new User(senderPsid);
-
-        GraphApi.getUserProfile(senderPsid)
-          .then(userProfile => {
+        if (!(senderPsid in users)) {
+          // First time seeing this user
+          let user = new User(senderPsid);
+          let userProfile = await GraphApi.getUserProfile(senderPsid);
+          if (userProfile) {
             user.setProfile(userProfile);
-          })
-          .catch(error => {
-            // The profile is unavailable
-            console.log("Profile is unavailable:", error);
-          })
-          .finally(() => {
             users[senderPsid] = user;
-            if (user.locale) {
-              i18n.setLocale(user.locale);
-              console.log(
-                "New Profile PSID:",
-                senderPsid,
-                "with locale:",
-                i18n.getLocale()
-              );
-            }
-            let receiveMessage = new Receive(users[senderPsid], webhookEvent);
-            return receiveMessage.handleMessage();
-          });
-      } else {
+            console.log(`Created new user profile:`);
+            console.log({user});
+          }
+        }
         i18n.setLocale(users[senderPsid].locale);
-        console.log(
-          "Profile already exists PSID:",
-          senderPsid,
-          "with locale:",
-          i18n.getLocale()
-        );
         let receiveMessage = new Receive(users[senderPsid], webhookEvent);
         return receiveMessage.handleMessage();
-      }
+      });
+
+
+
+
+      // if (!(senderPsid in users)) {
+      //   let user = new User(senderPsid);
+
+      //   GraphApi.getUserProfile(senderPsid)
+      //     .then(userProfile => {
+      //       user.setProfile(userProfile);
+      //     })
+      //     .catch(error => {
+      //       // The profile is unavailable
+      //       console.log("Profile is unavailable:", error);
+      //     })
+      //     .finally(() => {
+      //       users[senderPsid] = user;
+      //       if (user.locale) {
+      //         i18n.setLocale(user.locale);
+      //         console.log(
+      //           "New Profile PSID:",
+      //           senderPsid,
+      //           "with locale:",
+      //           i18n.getLocale()
+      //         );
+      //       }
+      //       let receiveMessage = new Receive(users[senderPsid], webhookEvent);
+      //       return receiveMessage.handleMessage();
+      //     });
+      // } else {
+      //   i18n.setLocale(users[senderPsid].locale);
+      //   console.log(
+      //     "Profile already exists PSID:",
+      //     senderPsid,
+      //     "with locale:",
+      //     i18n.getLocale()
+      //   );
+      //   let receiveMessage = new Receive(users[senderPsid], webhookEvent);
+      //   return receiveMessage.handleMessage();
+      // }
+
+
     });
   } else {
     // Returns a '404 Not Found' if event is not from a page subscription
@@ -178,16 +198,16 @@ app.get("/profile", (req, res) => {
       if (mode == "webhook" || mode == "all") {
         Profile.setWebhook();
         res.write(
-          `<p>&#10003; Set app ${config.appId} call to ${config.webhookUrl}</p>`
+          `<p>&#9989; Set app ${config.appId} call to ${config.webhookUrl}</p>`
         );
       }
       if (mode == "profile" || mode == "all") {
         Profile.setThread();
-        res.write(`<p>&#10003; Set Messenger Profile of Page ${config.pageId}</p>`);
+        res.write(`<p>&#9989; Set Messenger Profile of Page ${config.pageId}</p>`);
       }
       if (mode == "personas" || mode == "all") {
         Profile.setPersonas();
-        res.write(`<p>&#10003; Set Personas for ${config.appId}</p>`);
+        res.write(`<p>&#9989; Set Personas for ${config.appId}</p>`);
         res.write(
           "<p>Note: To persist the personas, add the following variables \
           to your environment variables:</p>"
@@ -201,15 +221,15 @@ app.get("/profile", (req, res) => {
       }
       if (mode == "nlp" || mode == "all") {
         GraphApi.callNLPConfigsAPI();
-        res.write(`<p>&#10003; Enabled Built-in NLP for Page ${config.pageId}</p>`);
+        res.write(`<p>&#9989; Enabled Built-in NLP for Page ${config.pageId}</p>`);
       }
       if (mode == "domains" || mode == "all") {
         Profile.setWhitelistedDomains();
-        res.write(`<p>&#10003; Whitelisted domains: ${config.whitelistedDomains}</p>`);
+        res.write(`<p>&#9989; Whitelisted domains: ${config.whitelistedDomains}</p>`);
       }
       if (mode == "private-reply") {
         Profile.setPageFeedWebhook();
-        res.write(`<p>&#10003; Set Page Feed Webhook for Private Replies.</p>`);
+        res.write(`<p>&#9989; Set Page Feed Webhook for Private Replies.</p>`);
       }
       res.status(200).end();
     } else {

@@ -230,8 +230,7 @@ config.checkEnvVariables();
 
 // Listen for requests :)
 var listener = app.listen(config.port, function() {
-    console.log(`The app is listening on port ${listener.address().port}`);
-
+  console.log(`The app is listening on port ${listener.address().port}`);
   if (
     Object.keys(config.personas).length == 0 &&
     config.appUrl &&

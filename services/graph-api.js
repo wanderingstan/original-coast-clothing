@@ -74,7 +74,7 @@ module.exports = class GraphApi {
       fields = fields + ", " + customFields;
     }
 
-    console.log({fields});
+    console.log({ fields });
 
     let url = new URL(config.mPlatfom);
     url.pathname += `/${config.appId}/subscriptions`;
@@ -115,7 +115,7 @@ module.exports = class GraphApi {
       fields = fields + ", " + customFields;
     }
 
-    console.log({fields});
+    console.log({ fields });
 
     let url = new URL(config.mPlatfom);
     url.pathname += `/${config.pageId}/subscribed_apps`;
@@ -185,17 +185,16 @@ module.exports = class GraphApi {
   }
 
   static async postPersonaAPI(name, profile_picture_url) {
-
     let requestBody = {
       name,
       profile_picture_url
     };
     console.log(`Creating a Persona for app ${config.appId}`);
-    console.log({requestBody});
+    console.log({ requestBody });
     let url = new URL(config.mPlatfom);
     url.pathname += `/me/personas`;
     url.search = new URLSearchParams({
-      access_token: config.pageAccesToken,
+      access_token: config.pageAccesToken
     });
     let response = await fetch(url, {
       method: "POST",

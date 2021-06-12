@@ -48,7 +48,7 @@ module.exports = class Profile {
       });
     }
     let existingPersonas = config.personas;
-    console.log({existingPersonas});
+    console.log({ existingPersonas });
 
     for (let persona of newPersonas) {
       if (!(persona.name in existingPersonas)) {
@@ -129,7 +129,7 @@ module.exports = class Profile {
       })
     };
 
-    console.log({localizedGreeting});
+    console.log({ localizedGreeting });
     return localizedGreeting;
   }
 
@@ -166,7 +166,7 @@ module.exports = class Profile {
       ]
     };
 
-    console.log({localizedMenu});
+    console.log({ localizedMenu });
     return localizedMenu;
   }
 
@@ -175,7 +175,7 @@ module.exports = class Profile {
       whitelisted_domains: config.whitelistedDomains
     };
 
-    console.log({whitelistedDomains});
+    console.log({ whitelistedDomains });
     return whitelistedDomains;
   }
 };

@@ -125,55 +125,13 @@ app.post("/webhook", (req, res) => {
             user.setProfile(userProfile);
             users[senderPsid] = user;
             console.log(`Created new user profile:`);
-            console.log({user});
+            console.log({ user });
           }
         }
         i18n.setLocale(users[senderPsid].locale);
         let receiveMessage = new Receive(users[senderPsid], webhookEvent);
         return receiveMessage.handleMessage();
       });
-
-
-
-
-      // if (!(senderPsid in users)) {
-      //   let user = new User(senderPsid);
-
-      //   GraphApi.getUserProfile(senderPsid)
-      //     .then(userProfile => {
-      //       user.setProfile(userProfile);
-      //     })
-      //     .catch(error => {
-      //       // The profile is unavailable
-      //       console.log("Profile is unavailable:", error);
-      //     })
-      //     .finally(() => {
-      //       users[senderPsid] = user;
-      //       if (user.locale) {
-      //         i18n.setLocale(user.locale);
-      //         console.log(
-      //           "New Profile PSID:",
-      //           senderPsid,
-      //           "with locale:",
-      //           i18n.getLocale()
-      //         );
-      //       }
-      //       let receiveMessage = new Receive(users[senderPsid], webhookEvent);
-      //       return receiveMessage.handleMessage();
-      //     });
-      // } else {
-      //   i18n.setLocale(users[senderPsid].locale);
-      //   console.log(
-      //     "Profile already exists PSID:",
-      //     senderPsid,
-      //     "with locale:",
-      //     i18n.getLocale()
-      //   );
-      //   let receiveMessage = new Receive(users[senderPsid], webhookEvent);
-      //   return receiveMessage.handleMessage();
-      // }
-
-
     });
   } else {
     // Returns a '404 Not Found' if event is not from a page subscription
@@ -203,7 +161,9 @@ app.get("/profile", (req, res) => {
       }
       if (mode == "profile" || mode == "all") {
         Profile.setThread();
-        res.write(`<p>&#9989; Set Messenger Profile of Page ${config.pageId}</p>`);
+        res.write(
+          `<p>&#9989; Set Messenger Profile of Page ${config.pageId}</p>`
+        );
       }
       if (mode == "personas" || mode == "all") {
         Profile.setPersonas();
@@ -221,11 +181,15 @@ app.get("/profile", (req, res) => {
       }
       if (mode == "nlp" || mode == "all") {
         GraphApi.callNLPConfigsAPI();
-        res.write(`<p>&#9989; Enabled Built-in NLP for Page ${config.pageId}</p>`);
+        res.write(
+          `<p>&#9989; Enabled Built-in NLP for Page ${config.pageId}</p>`
+        );
       }
       if (mode == "domains" || mode == "all") {
         Profile.setWhitelistedDomains();
-        res.write(`<p>&#9989; Whitelisted domains: ${config.whitelistedDomains}</p>`);
+        res.write(
+          `<p>&#9989; Whitelisted domains: ${config.whitelistedDomains}</p>`
+        );
       }
       if (mode == "private-reply") {
         Profile.setPageFeedWebhook();

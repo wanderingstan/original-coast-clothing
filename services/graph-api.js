@@ -49,10 +49,9 @@ module.exports = class GraphApi {
     if (response.ok) {
       console.log(`Request sent.`);
     } else {
-      let error = await response.json();
       console.warn(
         `Unable to callMessengerProfileAPI: ${response.statusText}`,
-        error
+        await response.json()
       );
     }
   }
@@ -67,8 +66,8 @@ module.exports = class GraphApi {
     );
 
     let fields =
-      "messages, messaging_postbacks, messaging_optins, \
-        message_deliveries, messaging_referrals";
+      "messages, messaging_postbacks, messaging_optins, " +
+      "message_deliveries, messaging_referrals";
 
     if (customFields !== undefined) {
       fields = fields + ", " + customFields;

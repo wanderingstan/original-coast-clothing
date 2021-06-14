@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "Short description of the issue"
 labels: bug
-assignees: jorgeluiso, rubycalling
+assignees: wanderingstan, Barbog
 ---
 
 #### Describe the bug

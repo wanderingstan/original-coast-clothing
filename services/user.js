@@ -22,14 +22,8 @@ module.exports = class User {
   setProfile(profile) {
     this.firstName = profile.firstName;
     this.lastName = profile.lastName;
-    if (profile.locale) {
-      this.locale = profile.locale;
-    }
-    if (profile.timezone) {
-      this.timezone = profile.timezone;
-    }
-    if (profile.gender) {
-      this.gender = profile.gender;
-    }
+    this.locale = profile.locale || "";
+    this.timezone = profile.timezone || "";
+    this.gender = profile.gender || "";
   }
 };

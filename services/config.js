@@ -26,8 +26,8 @@ const ENV_VARS = [
 
 module.exports = {
   // Messenger Platform API
-  mPlatformDomain: "https://graph.facebook.com",
-  mPlatformVersion: "v11.0",
+  apiDomain: "https://graph.facebook.com",
+  apiVersion: "v11.0",
 
   // Page and Application information
   pageId: process.env.PAGE_ID,
@@ -48,13 +48,14 @@ module.exports = {
   // Preferred port (default to 3000)
   port: process.env.PORT || 3000,
 
-  get mPlatfom() {
-    return this.mPlatformDomain + "/" + this.mPlatformVersion;
+  // Base URL for Messenger Platform API calls
+  get apiUrl() {
+    return `${this.apiDomain}/${this.apiVersion}`;
   },
 
   // URL of your webhook endpoint
   get webhookUrl() {
-    return this.appUrl + "/webhook";
+    return `${this.appUrl}/webhook`;
   },
 
   get newPersonas() {

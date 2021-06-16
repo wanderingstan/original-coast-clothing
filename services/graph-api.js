@@ -17,8 +17,7 @@ const config = require("./config"),
 
 module.exports = class GraphApi {
   static async callSendApi(requestBody) {
-    let url = new URL(config.mPlatfom);
-    url.pathname += "/me/messages";
+    let url = new URL(`${config.apiUrl}/me/messages`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
     });
@@ -36,8 +35,7 @@ module.exports = class GraphApi {
     // Send the HTTP request to the Messenger Profile API
 
     console.log(`Setting Messenger Profile for app ${config.appId}`);
-    let url = new URL(config.mPlatfom);
-    url.pathname += "/me/messenger_profile";
+    let url = new URL(`${config.apiUrl}/me/messenger_profile`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
     });
@@ -75,8 +73,7 @@ module.exports = class GraphApi {
 
     console.log({ fields });
 
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/${config.appId}/subscriptions`;
+    let url = new URL(`${config.apiUrl}/${config.appId}/subscriptions`);
     url.search = new URLSearchParams({
       access_token: `${config.appId}|${config.appSecret}`,
       object: "page",
@@ -116,8 +113,7 @@ module.exports = class GraphApi {
 
     console.log({ fields });
 
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/${config.pageId}/subscribed_apps`;
+    let url = new URL(`${config.apiUrl}/${config.pageId}/subscribed_apps`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken,
       subscribed_fields: fields
@@ -136,8 +132,7 @@ module.exports = class GraphApi {
   }
 
   static async getUserProfile(senderIgsid) {
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/${senderIgsid}`;
+    let url = new URL(`${config.apiUrl}/${senderIgsid}`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken,
       fields: "first_name, last_name, gender, locale, timezone"
@@ -165,8 +160,7 @@ module.exports = class GraphApi {
     // Send the POST request to the Personas API
     console.log(`Fetching personas for app ${config.appId}`);
 
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/me/personas`;
+    let url = new URL(`${config.apiUrl}/me/personas`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
     });
@@ -190,8 +184,7 @@ module.exports = class GraphApi {
     };
     console.log(`Creating a Persona for app ${config.appId}`);
     console.log({ requestBody });
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/me/personas`;
+    let url = new URL(`${config.apiUrl}/me/personas`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
     });
@@ -218,8 +211,7 @@ module.exports = class GraphApi {
 
     console.log(`Enable Built-in NLP for Page ${config.pageId}`);
 
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/me/nlp_configs`;
+    let url = new URL(`${config./me/nlp_configs}/me/nlp_configs`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken,
       nlp_enabled: true
